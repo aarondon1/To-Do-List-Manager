@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}To-Do List Manager{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .completed {
+        text-decoration: line-through;
+        color: #888;
+      }
+      .priority-high {
+        border-left: 5px solid red;
+      }
+      .priority-medium {
+        border-left: 5px solid orange;
+      }
+      .priority-low {
+        border-left: 5px solid green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="mb-4">To-Do List Manager</h1>
+      <div class="row">
+        <div class="col-md-12">{% block content %}{% endblock %}</div>
+      </div>
+    </div>
+  </body>
+</html>

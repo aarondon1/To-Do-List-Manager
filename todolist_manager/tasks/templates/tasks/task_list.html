@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="btn-group">
+      <a
+        href="{% url 'task_list' %}"
+        class="btn btn-outline-primary {% if status == 'all' %}active{% endif %}"
+        >All Tasks</a
+      >
+      <a
+        href="{% url 'task_list' %}?status=pending"
+        class="btn btn-outline-primary {% if status == 'pending' %}active{% endif %}"
+        >Pending</a
+      >
+      <a
+        href="{% url 'task_list' %}?status=completed"
+        class="btn btn-outline-primary {% if status == 'completed' %}active{% endif %}"
+        >Completed</a
+      >
+    </div>
+  </div>
+  <div class="col-md-6 text-right">
+    <a href="{% url 'add_task' %}" class="btn btn-primary">Add New Task</a>
+  </div>
+</div>
+
+<div class="list-group">
+  {% for task in tasks %}
+  <div
+    class="list-group-item {% if task.completed %}completed{% endif %} priority-{% if task.priority >= 7 %}high{% elif task.priority >= 4 %}medium{% else %}low{% endif %}"
+  >
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ task.title }}</h5>
+      <small>Priority: {{ task.priority }}</small>
+    </div>
+    <p class="mb-1">{{ task.description }}</p>
+    <div class="btn-group">
+      {% if not task.completed %}
+      <a href="{% url 'complete_task' task.id %}" class="btn btn-sm btn-success"
+        >Complete</a
+      >
+      {% endif %}
+      <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger"
+        >Delete</a
+      >
+    </div>
+  </div>
+  {% empty %}
+  <div class="alert alert-info">No tasks found.</div>
+  {% endfor %}
+</div>
+{% endblock %}
